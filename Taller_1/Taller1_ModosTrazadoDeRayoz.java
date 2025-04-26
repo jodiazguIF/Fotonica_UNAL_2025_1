@@ -2,7 +2,7 @@ package Taller_1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class metodo_BiseccionModosGuiaDeOnda{
+public class Taller1_ModosTrazadoDeRayoz{
     public static double resultado_FuncionTE(double theta, double n_core, double n_clad, double long_Onda, double altura_fibra ,double m){
         /*Esta función recibe los argumentos necesarios para calcular la suma de todos los cambios de fase en ondas TE */
         double Ecuacion = (double)(((4 * Math.PI * n_core*altura_fibra*Math.cos(theta))/(long_Onda)) 
@@ -48,7 +48,7 @@ public class metodo_BiseccionModosGuiaDeOnda{
                     //Significa que la raíz está entre el límite derecho y la raíz propuesta
                     theta_izquierda = raiz; //Se ajusta el límite izquierdo y se repite desde el paso 2
                 }
-                if(resultado_raiz*resultado_izquierda < 1E-4){
+                if(resultado_raiz*resultado_izquierda < 1E-5){
                     //Se encontró la raíz exacta, entonces la variable raíz es la solución 
                     raices.add(raiz); //Se agrega la raíz a la lista
                     raices.add(m); //Se agrega el orden de la interferencia a la lista
@@ -94,7 +94,7 @@ public class metodo_BiseccionModosGuiaDeOnda{
                     //Significa que la raíz está entre el límite derecho y la raíz propuesta
                     theta_izquierda = raiz; //Se ajusta el límite izquierdo y se repite desde el paso 2
                 }
-                if(resultado_raiz*resultado_izquierda < 1E-3){
+                if(resultado_raiz*resultado_izquierda < 1E-5){
                     //Se encontró la raíz exacta, entonces la variable raíz es la solución 
                     raices.add(raiz); //Se agrega la raíz a la lista
                     raices.add(m); //Se agrega el orden de la interferencia a la lista
