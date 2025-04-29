@@ -33,7 +33,7 @@ public class taller1_MetodoBiseccionConContador {
                     //Significa que la raíz está entre el límite derecho y la raíz propuesta
                     theta_izquierda = raiz; //Se ajusta el límite izquierdo y se repite desde el paso 2
                 }
-                if(Math.abs(resultado_raiz) < 1E-5){
+                if(Math.abs(resultado_raiz) < 1E-7){
                     //Se encontró la raíz exacta, entonces la variable raíz es la solución 
                     raices.add(raiz); //Se agrega la raíz a la lista
                     raices.add(orden_Contador); //Se agrega el orden de la interferencia a la lista

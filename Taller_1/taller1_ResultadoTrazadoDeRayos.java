@@ -14,10 +14,10 @@ public class taller1_ResultadoTrazadoDeRayos {
         double orden_contador = 0; //Orden del modo de propagación
         List <Double> raices = taller1_MetodoBiseccionConContador.metodo_BiseccionConContador( taller1_ModosTrazadoDeRayoz::resultado_FuncionTE, orden_contador, theta_critico, fin);
         //Se obtiene la lista de raíces para el modo TE
-        System.out.println("Raíces para el modo TE: " + raices); //Se imprime la lista de raíces
+        System.out.println("Thetas para el modo TE: " + raices); //Se imprime la lista de raíces
         orden_contador = 0; //Reinicia el contador para el modo TM
         raices = taller1_MetodoBiseccionConContador.metodo_BiseccionConContador(taller1_ModosTrazadoDeRayoz::resultado_FuncionTM, orden_contador, theta_critico, fin);
         //Se obtiene la lista de raíces para el modo TM
-        System.out.println("Raíces para el modo TM: " + raices); //Se imprime la lista de raíces
+        System.out.println("Thetas para el modo TM: " + raices); //Se imprime la lista de raíces
     }
 }
