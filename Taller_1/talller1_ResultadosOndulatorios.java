@@ -15,6 +15,8 @@ public class talller1_ResultadosOndulatorios {
         // Modos Transversales Electricos Pares
         List <Double> raices_phi = taller1_MetodoBiseccion.metodo_Biseccion(taller1_ModosOndulatorios::resultado_FuncionModosTEPares, inicio, fin);
         List <Double> raices_alfa = new ArrayList<>();
+        List <Double> n_eff = new ArrayList<>(); //Lista de índices de refracción efectivos
+
         for (int i = 0; i < raices_phi.size(); i++){
             /*En este ciclo se calulan los valores de alfa */
             double phi = raices_phi.get(i); //Se obtiene el phi
@@ -22,7 +24,16 @@ public class talller1_ResultadosOndulatorios {
             raices_alfa.add(alfa); //Se agrega el alfa a la lista
         }
         List <Double> thetas_permitidos = taller1_Pasos3_5MetodoOndulatorio.pasos_3_5MetodoOndulatorio(raices_phi, raices_alfa);
+        for (int i=0 ; i<raices_phi.size(); i++){
+            double aux = n_core*Math.sin(thetas_permitidos.get(i)); //Se obtiene el índice de refracción efectivo
+            n_eff.add(aux);; 
+        }
+        for(int i=0 ; i<raices_phi.size(); i++){
+            thetas_permitidos.set(i, Math.toDegrees(thetas_permitidos.get(i))); //Convierte las raíces a grados
+        }
         System.out.println("Thetas Permitidos TE Pares: " + thetas_permitidos);
+        System.out.println("n_eff para el modo TE Pares: " + n_eff); //Se imprime la lista de índices de refracción efectivos
+        n_eff.clear(); //Limpiamos la lista de índices de refracción efectivos
         raices_alfa.clear(); //Limpiamos la lista de raices_alfa
 
         // Modos Transversales Electricos Impares
@@ -34,7 +45,16 @@ public class talller1_ResultadosOndulatorios {
             raices_alfa.add(alfa); //Se agrega el alfa a la lista
         }
         thetas_permitidos = taller1_Pasos3_5MetodoOndulatorio.pasos_3_5MetodoOndulatorio(raices_phi, raices_alfa);
+        for (int i=0 ; i<raices_phi.size(); i++){
+            double aux = n_core*Math.sin(thetas_permitidos.get(i)); //Se obtiene el índice de refracción efectivo
+            n_eff.add(aux);; 
+        }
+        for(int i=0 ; i<raices_phi.size(); i++){
+            thetas_permitidos.set(i, Math.toDegrees(thetas_permitidos.get(i))); //Convierte las raíces a grados
+        }
         System.out.println("Thetas Permitidos TE Impares: " + thetas_permitidos);
+        System.out.println("n_eff para el modo TE Impares: " + n_eff); //Se imprime la lista de índices de refracción efectivos
+        n_eff.clear(); //Limpiamos la lista de índices de refracción efectivos
         raices_alfa.clear(); //Limpiamos la lista de raices_alfa
 
         // Modos Transversales Magneticos Pares
@@ -46,7 +66,16 @@ public class talller1_ResultadosOndulatorios {
             raices_alfa.add(alfa); //Se agrega el alfa a la lista
         }
         thetas_permitidos = taller1_Pasos3_5MetodoOndulatorio.pasos_3_5MetodoOndulatorio(raices_phi, raices_alfa);
+        for (int i=0 ; i<raices_phi.size(); i++){
+            double aux = n_core*Math.sin(thetas_permitidos.get(i)); //Se obtiene el índice de refracción efectivo
+            n_eff.add(aux);; 
+        }
+        for(int i=0 ; i<raices_phi.size(); i++){
+            thetas_permitidos.set(i, Math.toDegrees(thetas_permitidos.get(i))); //Convierte las raíces a grados
+        }
         System.out.println("Thetas Permitidos TM Pares: " + thetas_permitidos);
+        System.out.println("n_eff para el modo TM Pares: " + n_eff); //Se imprime la lista de índices de refracción efectivos
+        n_eff.clear(); //Limpiamos la lista de índices de refracción efectivos
         raices_alfa.clear(); //Limpiamos la lista de raices_alfa
 
         //Modos Transversales Magneticos Impares
@@ -58,7 +87,14 @@ public class talller1_ResultadosOndulatorios {
             raices_alfa.add(alfa); //Se agrega el alfa a la lista
         }
         thetas_permitidos = taller1_Pasos3_5MetodoOndulatorio.pasos_3_5MetodoOndulatorio(raices_phi, raices_alfa);
+        for (int i=0 ; i<raices_phi.size(); i++){
+            double aux = n_core*Math.sin(thetas_permitidos.get(i)); //Se obtiene el índice de refracción efectivo
+            n_eff.add(aux);; 
+        }
+        for(int i=0 ; i<raices_phi.size(); i++){
+            thetas_permitidos.set(i, Math.toDegrees(thetas_permitidos.get(i))); //Convierte las raíces a grados
+        }
         System.out.println("Thetas Permitidos TM Impares: " + thetas_permitidos);
-        
+        System.out.println("n_eff para el modo TM Impares: " + n_eff); //Se imprime la lista de índices de refracción efectivos
     }
 }

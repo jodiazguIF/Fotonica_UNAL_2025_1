@@ -37,6 +37,7 @@ public class taller1_Pasos3_5MetodoOndulatorio {
             double theta = Math.asin((beta)/(n_core*numero_onda));
             thetas_permitidos.add(theta);
         }
+        System.out.println("Raices de beta: " + betas_pemitidos);
         return thetas_permitidos;
     }
 }
