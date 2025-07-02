@@ -52,7 +52,6 @@ def pattern_adapt(matrix_NotAdapated, convertion_Column, DMD_pixels = [1920,1080
             aux_matrix = []
     return matrix_Adapted
 
-
 def embed_in_DMD_frame(matrix, target_size=(1920, 1080)):
     """
     Centra la matriz  dentro de un lienzo negro del tamaño `target_size` = (ancho, alto)
@@ -68,7 +67,6 @@ def embed_in_DMD_frame(matrix, target_size=(1920, 1080)):
 
     canvas[ x_offset:x_offset + pattern_width,y_offset:y_offset + pattern_height] = pattern
     return canvas
-
 
 def get_Hadamard_1_SurfaceToShow(pattern_size, convertion_Column):
     '''     
