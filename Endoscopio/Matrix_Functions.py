@@ -112,7 +112,7 @@ def get_Hadamard_2_SurfaceToShow(pattern_size, convertion_Column):
     Hadamard_H2_surface = pygame.surfarray.make_surface(Hadamard_H2_rgb_pattern)    # Se convierte en superficie el patrón para mostrarlo con pygame
     return Hadamard_H2_surface
 
-def save_hadamard_patterns_to_disk(pattern_size, Hadmard_Selection ,output_dir="Hadamard_Patterns"):
+def save_hadamard_patterns_to_disk(pattern_size, Hadamard_Selection ,output_dir="Hadamard_Patterns"):
     """
     Generates and saves to disk all Hadamard patterns (as PNG images)
     for a given pattern resolution.
@@ -129,10 +129,12 @@ def save_hadamard_patterns_to_disk(pattern_size, Hadmard_Selection ,output_dir="
 
     # Generate Hadamard matrix
     hadamard_matrix = scipy.linalg.hadamard(matrix_order)
-    if (Hadmard_Selection == 1):
+    if (Hadamard_Selection == 1):
         hadamard_matrix = ((hadamard_matrix + 1) / 2 * 255).astype(np.uint8)
-    else:
+    elif(Hadamard_Selection == 2):
         hadamard_matrix = ((hadamard_matrix - 1) / 2 * 255).astype(np.uint8)
+    else:
+        return print("Hadamard Selection must be 1 or 2")
 
     for i in range(matrix_order):
         pattern_scaled = pattern_adapt(hadamard_matrix, i)
@@ -171,6 +173,5 @@ def display_hadamard_patterns_from_disk(folder_path, fps=60):
         index += 1
 
     pygame.quit()
-
 
 #save_hadamard_patterns_to_disk(64,1, "Hadmard_2")

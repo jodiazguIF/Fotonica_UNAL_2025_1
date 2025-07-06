@@ -42,8 +42,6 @@ def intensidad_Logaritmica(campo, ventanaX, ventanaY, vmin = 0, vmax = 1):
     plt.title("Mapa de Intensidad en escala logaritmica") #agregamos un titulo en el grafico
     plt.show() #mostramos el grafico
 
-
-
 def fase(campo, ventana_X, ventana_Y):
     ''' Grafica un mapa de fase del campo ingresado    
     ENTRADAS:
