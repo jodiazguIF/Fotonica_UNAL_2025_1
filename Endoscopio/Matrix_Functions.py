@@ -4,6 +4,7 @@ import pygame
 import scipy.linalg
 import os
 import matplotlib.pyplot as plt
+import imageio.v2 
 
 def pattern_adapt(matrix_NotAdapated, convertion_Column, DMD_pixels = [1920,1080]):
     '''
@@ -54,18 +55,18 @@ def pattern_adapt(matrix_NotAdapated, convertion_Column, DMD_pixels = [1920,1080
 
 def embed_in_DMD_frame(matrix, target_size=(1920, 1080)):
     """
-    Centra la matriz  dentro de un lienzo negro del tamaño `target_size` = (ancho, alto)
+    Centra la matriz dentro de un lienzo negro del tamaño `target_size` = (ancho, alto)
     """
     pattern = np.array(matrix, dtype=np.uint8)
     pattern_height, pattern_width = pattern.shape
     target_width, target_height = target_size
-    canvas = np.zeros((target_width, target_height), dtype=np.uint8)
+    canvas = np.zeros((target_height, target_width), dtype=np.uint8)  # alto, ancho
 
     # Centrado 
     x_offset = (target_width - pattern_width) // 2
     y_offset = (target_height - pattern_height) // 2
 
-    canvas[ x_offset:x_offset + pattern_width,y_offset:y_offset + pattern_height] = pattern
+    canvas[y_offset:y_offset + pattern_height, x_offset:x_offset + pattern_width] = pattern
     return canvas
 
 def get_Hadamard_1_SurfaceToShow(pattern_size, convertion_Column):
@@ -132,7 +133,7 @@ def save_hadamard_patterns_to_disk(pattern_size, Hadamard_Selection ,output_dir=
     if (Hadamard_Selection == 1):
         hadamard_matrix = ((hadamard_matrix + 1) / 2 * 255).astype(np.uint8)
     elif(Hadamard_Selection == 2):
-        hadamard_matrix = ((hadamard_matrix - 1) / 2 * 255).astype(np.uint8)
+        hadamard_matrix = ((hadamard_matrix - 1) / 2 ).astype(np.uint8)
     else:
         return print("Hadamard Selection must be 1 or 2")
 
@@ -142,7 +143,7 @@ def save_hadamard_patterns_to_disk(pattern_size, Hadamard_Selection ,output_dir=
 
         # Save as PNG image
         filename = os.path.join(output_dir, f"hadamard_{i:04}.png")
-        plt.imsave(filename, pattern_centered.T, cmap="gray", vmin=0, vmax=255)
+        plt.imsave(filename, pattern_centered, cmap="gray", vmin=0, vmax=255)
 
         if i % 100 == 0 or i == matrix_order - 1:
             print(f"Saved pattern {i + 1} of {matrix_order}")
@@ -174,4 +175,27 @@ def display_hadamard_patterns_from_disk(folder_path, fps=60):
 
     pygame.quit()
 
-#save_hadamard_patterns_to_disk(64,1, "Hadmard_2")
+def adapt_matrix_to_scale(matrix_NotAdapated, DMD_pixels=[1920, 1080]):
+    """
+    Escala una matriz cuadrada (NxN) a un tamaño mayor usando repetición de píxeles,
+    para ajustarla al área cuadrada más grande posible dentro de DMD_pixels.
+    """
+    matrix = np.array(matrix_NotAdapated)
+    N = matrix.shape[0]
+    # Determina el tamaño máximo cuadrado que cabe en el DMD
+    scale = int(min(DMD_pixels) // N)
+    if scale < 1:
+        raise ValueError("El patrón es más grande que el área del DMD.")
+    # Repite los píxeles para escalar
+    matrix_scaled = np.repeat(np.repeat(matrix, scale, axis=0), scale, axis=1)
+    return matrix_scaled
+'''
+No pues, esto hace cosas. Usa una imagen de 64x64, la convierte a 1920x1080 y la guarda en el disco
+filename = "hadamard_0004.png"
+img_matrix = imageio.v2.imread("Imagenes_Reconstruir\\hadamard_0004.png")
+img_matrix = adapt_matrix_to_scale(img_matrix)
+imagen = embed_in_DMD_frame(img_matrix)
+plt.imsave(filename, imagen, cmap="gray", vmin=0, vmax=255)
+'''
+#save_hadamard_patterns_to_disk(64,1, "Hadamard_1_64")
+#save_hadamard_patterns_to_disk(64,2, "Hadamard_2_64")

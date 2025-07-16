@@ -4,10 +4,10 @@ import time
 import os
 
 # Configuración
-num_frames = 10
+num_frames = 2
 delay = 0.5  # segundos entre capturas
-exposure_time_ms = 30  # tiempo de exposición (ms)
-gain_value = 50        # ganancia (0 a 100)
+exposure_time_ms = 50  # tiempo de exposición (ms)
+gain_value = 100        # ganancia (0 a 100)
 output_dir = "Speckles"
 
 # Crear carpeta si no existe
