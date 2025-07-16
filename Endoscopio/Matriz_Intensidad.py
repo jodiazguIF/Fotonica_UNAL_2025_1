@@ -22,9 +22,9 @@ Matriz_Intensidad = np.hstack((Y_H1, Y_H2))  # matriz de intensidad
 print("Concatenacion terminada :D")
 
 # Guardar la matriz de intensidad Y
-np.save('/media/manuel/Windows/Y_intensidad.npy', Matriz_Intensidad)
+np.save('/media/manuel/Windows/Matriz_Intensidad.npy', Matriz_Intensidad)
 
-print("Matriz de intensidad Y guardada exitosamente.")
+print("Matriz de intensidad guardada exitosamente.")
 
 
 
