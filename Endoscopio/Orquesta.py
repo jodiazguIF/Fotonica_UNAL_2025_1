@@ -21,10 +21,12 @@ cam = uc480.UC480_Camera(cams[0])
 cam.exposure_time = exposure_time_ms 
 cam.gain = gain_value
 
-pygame.init()   #Iniciamos la instancia de pygame que nos permite proyectar los patrones
+pygame.init()   #Iniciamos la instancia de pygame que nosz permite proyectar los patrones
 screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN) #Configuración para la proyección 
 clock = pygame.time.Clock() #Creamos una instancia para poder seleccionar los fps de proyección
-
+offset_x = 130
+offset_y = -40
+    
 # Iniciar captura 
 cam.start_live_video(framerate = "30Hz")
 
@@ -37,7 +39,7 @@ running = True  #Variable para poder apagar en algún momento la proyección
 index = 0       #Variable para poder iterar sobre las imágenes
 contador_frame = 0
 
-folder_path = folder_path = "C:\\Users\\josea\\Documents\\GitHub\\Hadamard_1_64"
+folder_path = folder_path = "D:\\Hadamard_1_64_1280x1024"
 filenames = sorted([f for f in os.listdir(folder_path) if f.endswith(".png")])  #Ji
 while running and index < len(filenames):   
     for event in pygame.event.get():
@@ -48,7 +50,7 @@ while running and index < len(filenames):
     path = os.path.join(folder_path, filenames[index])
     image = pygame.image.load(path)
 
-    screen.blit(image,  (0, 0))
+    screen.blit(image,  (offset_x, offset_y))
     pygame.display.flip()   #En esta línea se proyecta la imagen en pantalla
     
     time.sleep(0.05)
@@ -60,7 +62,7 @@ while running and index < len(filenames):
     
     index += 1
 
-folder_path = "C:\\Users\\josea\\Documents\\GitHub\\Hadamard_2_64"
+folder_path = "D:\\Hadamard_1_64_1280x1024"
 index = 0
 while running and index < len(filenames):   
     for event in pygame.event.get():
@@ -71,7 +73,7 @@ while running and index < len(filenames):
     path = os.path.join(folder_path, filenames[index])
     image = pygame.image.load(path)
 
-    screen.blit(image,  (0, 0))
+    screen.blit(image,  (offset_x, offset_y))
     pygame.display.flip()   #En esta línea se proyecta la imagen en pantalla
     
     time.sleep(0.05)
@@ -85,7 +87,7 @@ while running and index < len(filenames):
 
 
 #   Proyectar Imágenes para reconstruir  
-folder_path = "C:\\Users\\josea\\Documents\\GitHub\\Imagenes_Reconstruir"
+folder_path = "D:\\Imagenes_Reconstruir_1280x1024"
 filenames = sorted([f for f in os.listdir(folder_path) if f.endswith(".png")])
 index = 0
 while running and index < len(filenames):   
@@ -97,7 +99,7 @@ while running and index < len(filenames):
     path = os.path.join(folder_path, filenames[index])
     image = pygame.image.load(path)
 
-    screen.blit(image,  (0, 0))
+    screen.blit(image,  (offset_x, offset_y))
     pygame.display.flip()   #En esta línea se proyecta la imagen en pantalla
     
     time.sleep(0.5)

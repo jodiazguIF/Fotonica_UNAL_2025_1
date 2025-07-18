@@ -151,12 +151,21 @@ def save_hadamard_patterns_to_disk(pattern_size, Hadamard_Selection ,output_dir=
     print(f"All patterns saved in folder: '{output_dir}/'")
 
 def display_hadamard_patterns_from_disk(folder_path, fps=60):
+    # Resolución del DMD
+    dmd_width, dmd_height = 1920, 1080
+    # Resolución de los patrones Hadamard
+    pattern_width, pattern_height = 1280, 1024
+
+    # Calcular los offsets para centrar el patrón en la pantalla del DMD
+    offset_x = 130
+    offset_y = -40
+
     pygame.init()
-    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((dmd_width, dmd_height), pygame.FULLSCREEN)
     clock = pygame.time.Clock()
-    
+
     filenames = sorted([f for f in os.listdir(folder_path) if f.endswith(".png")])
-    
+
     running = True
     index = 0
     while running and index < len(filenames):
@@ -164,12 +173,14 @@ def display_hadamard_patterns_from_disk(folder_path, fps=60):
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
                 running = False
 
-        # Carga imagen individual
+        # Carga imagen del patrón sin escalado
         path = os.path.join(folder_path, filenames[index])
         image = pygame.image.load(path).convert()
 
-        screen.blit(image, (0, 0))
+        screen.fill((0, 0, 0))  # Limpia la pantalla (negro)
+        screen.blit(image, (offset_x, offset_y))  # Centrar patrón
         pygame.display.flip()
+
         clock.tick(fps)
         index += 1
 
@@ -189,12 +200,13 @@ def adapt_matrix_to_scale(matrix_NotAdapated, DMD_pixels=[1920, 1080]):
     # Repite los píxeles para escalar
     matrix_scaled = np.repeat(np.repeat(matrix, scale, axis=0), scale, axis=1)
     return matrix_scaled
+
 '''
-No pues, esto hace cosas. Usa una imagen de 64x64, la convierte a 1920x1080 y la guarda en el disco
+#No pues, esto hace cosas. Usa una imagen de 64x64, la convierte a 1920x1080 y la guarda en el disco
 filename = "hadamard_0004.png"
-img_matrix = imageio.v2.imread("Imagenes_Reconstruir\\hadamard_0004.png")
-img_matrix = adapt_matrix_to_scale(img_matrix)
-imagen = embed_in_DMD_frame(img_matrix)
+img_matrix = imageio.v2.imread("Imagenes_Reconstruir_64x64\\hadamard_0004.png")
+img_matrix = adapt_matrix_to_scale(img_matrix, [1280, 1024])
+imagen = embed_in_DMD_frame(img_matrix, [1280, 1024])
 plt.imsave(filename, imagen, cmap="gray", vmin=0, vmax=255)
 '''
 #save_hadamard_patterns_to_disk(64,1, "Hadamard_1_64")
