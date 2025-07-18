@@ -3,8 +3,8 @@ import numpy as np
 import os
 
 # Rutas locales (Disco duro externo)
-file_H1 = '/media/manuel/Windows/Speckle_H1' # Contiene las 4096 imagenes de los speckles correspondientes a H1
-file_H2 = '/media/manuel/Windows/Speckle_H2' # lo mismo para H2
+file_H1 = 'D:\\Speckle_H1_64x64' # Contiene las 4096 imagenes de los speckles correspondientes a H1
+file_H2 = 'D:\\Speckle_H2_64x64' # lo mismo para H2
 
 
 ######################### Obtención de sub matriz de intensidad Speckles H1 #########################
@@ -44,9 +44,9 @@ for idx, archivo in enumerate(archivos_H1):
     Submatriz_Intensidad_H1[:, idx] = Vector_Binario_Speckle_H1
 
 # Guardar la matriz como archivo binario NumPy
-np.save('/media/manuel/Windows/speckles_H1_vectorizados.npy', Submatriz_Intensidad_H1)
+np.save('D:\\Archivos_Reconstruccion\\speckles_H1_vectorizados.npy', Submatriz_Intensidad_H1)
 
-print("Matriz de speckles guardada en: /media/manuel/Windows/speckles_H1_vectorizados.npy")
+print("Matriz de speckles guardada en: D:\\Archivos_Reconstruccion\\speckles_H1_vectorizados.npy")
 
 
 ######################### Obtención de sub matriz de intensidad Speckles H2 #########################
@@ -91,9 +91,9 @@ for idx, archivo in enumerate(archivos):
     Submatriz_Intensidad_H2[:, idx] = Vector_Binario_Speckle_H2
 
 # Guardar la matriz como archivo binario NumPy
-np.save('/media/manuel/Windows/speckles_H2_vectorizados.npy', Submatriz_Intensidad_H2)
+np.save('D:\\Archivos_Reconstruccion\\speckles_H2_vectorizados.npy', Submatriz_Intensidad_H2)
 
-print("Matriz de speckles guardada en: /media/manuel/Windows/speckles_H2_vectorizados.npy")
+print("Matriz de speckles guardada en: D:\\Archivos_Reconstruccion\\speckles_H2_vectorizados.npy")
 
 
 

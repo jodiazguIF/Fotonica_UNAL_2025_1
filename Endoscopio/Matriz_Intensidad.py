@@ -6,8 +6,8 @@ import os
 
 print("Inicia construccion de la matriz de intensidad")
 
-H1_speckles = np.load('speckles_H1_vectorizados.npy')  # (1310720, 4096)
-H2_speckles = np.load('speckles_H2_vectorizados.npy')  # (1310720, 4096)
+H1_speckles = np.load('D:\\Archivos_Reconstruccion\\speckles_H1_vectorizados.npy')  # (1310720, 4096)
+H2_speckles = np.load('D:\\Archivos_Reconstruccion\\speckles_H2_vectorizados.npy')  # (1310720, 4096)
 
 # Vector columna base correspondiente al speckle de la matriz de Hadamard con todos los pixeles en 1
 I1 = H1_speckles[:, 0].reshape(-1, 1)  
@@ -22,7 +22,7 @@ Matriz_Intensidad = np.hstack((Y_H1, Y_H2))  # matriz de intensidad ∈ (1310720
 print("Concatenacion terminada :D")
 
 # Guardar la matriz de intensidad Y
-np.save('/media/manuel/Windows/Matriz_Intensidad.npy', Matriz_Intensidad)
+np.save('D:\\Archivos_Reconstruccion\\Matriz_Intensidad.npy', Matriz_Intensidad)
 
 print("Matriz de intensidad guardada exitosamente.")
 

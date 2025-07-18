@@ -12,7 +12,7 @@ os.makedirs(ruta_salida, exist_ok=True)
 
 # Cargar la RVITM en float32
 print("Cargando matriz RVITM...")
-RVITM = np.load(ruta_rvitm).astype(np.float32)  # (131072, 131072)
+RVITM = np.load(ruta_rvitm).astype(np.float32)  # (1310720, 1310720)
 
 # Listar imágenes de speckles
 archivos = sorted([f for f in os.listdir(path_speckles) if f.endswith('.png')])

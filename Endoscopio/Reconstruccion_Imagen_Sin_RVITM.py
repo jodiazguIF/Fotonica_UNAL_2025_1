@@ -6,20 +6,20 @@ import os
 
 # Paths
 # Ojo que toca modificar el path de la imagen que toca reconstruir!!!
-Path_Imagen_a_Reconstruir = '/media/manuel/Windows/Speckle_De_Imagenes_A_Reconstruir/pato.png'
- 
-Path_Matriz_Intensidad = '/media/manuel/Windows/Matriz_Intensidad.npy'
-Path_Matriz_Hadamard_T = '/media/manuel/Windows/Hadamard_H_menosH_transpuesta.npy'
+Path_Imagen_a_Reconstruir = 'D:\\Speckle_De_Imagenes_A_Reconstruir\\pato.png'
+
+Path_Matriz_Intensidad = 'D:\\Archivos_Reconstruccion\\Matriz_Intensidad.npy'
+Path_Matriz_Hadamard_T = 'D:\\Archivos_Reconstruccion\\Hadamard_H_menosH_transpuesta.npy'
 
 # Modificar el output path para evitar que se sobreescriban!!!!
-Output_Path = '/media/manuel/Windows/Imagenes_Reconstruidas_Chunked'
+Output_Path = 'D:\\Archivos_Reconstruccion\\Imagenes_Reconstruidas'
 
 # Crear carpeta si no existe
 os.makedirs(Output_Path, exist_ok=True)
 
 # Cargar matrices a operar
-Matriz_Intensidad = np.load(Path_Matriz_Intensidad).astype(np.float32)        # (131072, 8192)
-Matriz_Hadamard_T = np.load(Path_Matriz_Hadamard_T).astype(np.float32)      # (8192, 131072)
+Matriz_Hadamard_T = np.load(Path_Matriz_Hadamard_T)      # (8192, 1310720)
+Matriz_Intensidad = np.load(Path_Matriz_Intensidad)        # (1310720, 8192)
 
 # Verificación de dimensiones
 assert Matriz_Intensidad.shape[1] == Matriz_Hadamard_T.shape[0], "Dimensiones incompatibles para multiplicación"
@@ -37,7 +37,7 @@ I_out = binaria.flatten(order='C').astype(np.float32).reshape(-1, 1)  # (131072,
 I_rec = np.zeros((Matriz_Intensidad.shape[0], 1), dtype=np.float32)
 
 # Chunking
-chunk_size = 512  # Variable ajustable en función de la capacidad de la RAM. Si no da bajar a 256
+chunk_size = 1024   # Variable ajustable en función de la capacidad de la RAM. Si no da bajar a 256
 for i in range(0, Matriz_Hadamard_T.shape[1], chunk_size):
     XTi = Matriz_Hadamard_T[:, i:i + chunk_size]    # (8192, chunk)
     I_rec[i:i + chunk_size] = (1 / (2 * N)) * Matriz_Intensidad @ (XTi @ I_out)
@@ -52,7 +52,3 @@ nombre_salida = f'reconstruida_{os.path.basename(Path_Imagen_a_Reconstruir)}'
 cv2.imwrite(os.path.join(Output_Path, nombre_salida), img_rec)
 
 print(f"Imagen reconstruida guardada como: {nombre_salida}")
-
-
-
-

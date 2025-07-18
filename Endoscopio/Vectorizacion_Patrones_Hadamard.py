@@ -3,8 +3,8 @@ import numpy as np
 import os
 
 # Rutas a los patrones Hadamard proyectados
-path_H1 = '/media/manuel/Windows/Hadamard_1_64_1280x1024'
-path_H2 = '/media/manuel/Windows/Hadamard_2_64_1280x1024'
+path_H1 = 'D:\\Hadamard_1_64_1280x1024'
+path_H2 = 'D:\\Hadamard_2_64_1280x1024'
 
 # Obtener listas ordenadas de archivos
 archivos_H1 = sorted([f for f in os.listdir(path_H1) if f.endswith('.png')])
@@ -13,27 +13,14 @@ archivos_H2 = sorted([f for f in os.listdir(path_H2) if f.endswith('.png')])
 # Dimensiones conocidas
 alto, ancho = 1024, 1280
 M = alto * ancho
-N1 = len(archivos_H1)  # deben ser 4096
-N2 = len(archivos_H2)  # deben ser 4096
-
-print("Numero de archivos en archivos_H1:")
-print(N1)
-
-
-print("Numero de archivos en archivos_H2:")
-print(N2)
-
-if(N1 != N2):
-    print("Tamaño de matrices H1 & H2 diferente")
-
+N = len(archivos_H1)  # deben ser 4096
 
 # Inicializar matrices
-H1_bin = np.zeros((M, N1), dtype=np.uint8)
-H2_bin = np.zeros((M, N2), dtype=np.uint8)
-
+H1_bin = np.zeros((M, N), dtype=np.uint8)
+H2_bin = np.zeros((M, N), dtype=np.uint8)
 
 # Cargar y vectorizar patrones Hadamard binarios
-for idx in range(N1):
+for idx in range(N):
     
     # Mismo proceso que se realizo en la binarizacion de los Speckles.
     
@@ -47,16 +34,16 @@ for idx in range(N1):
     _, bin_H2 = cv2.threshold(img_H2, 127, 1, cv2.THRESH_BINARY)
     H2_bin[:, idx] = bin_H2.flatten(order='C')
 
-# Construcción matriz [H, -H] y su transpuesta
+# Construcción matriz [H,-H]
 
-# Convertir de binario a {-1, +1}
+# Convertir de binario a {-1, +1} 
 H = 2 * H1_bin - 1  # H ∈ {-1, +1}
 neg_H = -(2 * H2_bin - 1)  # -H ∈ {-1, +1}
 
-# Concatenar y transponer directamente
-X_T = np.hstack((H, neg_H)).T.astype(np.float32)  # Xᵀ ∈ (8192, 131072)
+# Concatenar matriz de entrada: X = [H | -H] y transponer
+X_T = np.hstack((H, neg_H)).T  # tamaño (131072, 8192)
 
-# Guardar la transpuesta directamente
-np.save('/media/manuel/Windows/Hadamard_H_menosH_transpuesta.npy', X_T)
+# Guardar para reutilizar luego
+np.save('D:\\Archivos_Reconstruccion\\Hadamard_H_menosH.npy', X_T)
 
-print("Matriz transpuesta Hadamard [H, -H]ᵀ guardada exitosamente.")
+print("Matriz de entrada Hadamard [H, -H] construida y guardada exitosamente.")
