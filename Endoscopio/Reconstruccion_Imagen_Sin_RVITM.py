@@ -20,8 +20,7 @@ Matriz_Hadamard_T = np.lib.format.open_memmap(Path_Matriz_Hadamard_T, dtype='flo
 # === Imagen a reconstruir ===
 print(f"Procesando imagen: {os.path.basename(Path_Imagen_a_Reconstruir)}")
 img = cv2.imread(Path_Imagen_a_Reconstruir, cv2.IMREAD_GRAYSCALE)
-_, binaria = cv2.threshold(img, 127, 1, cv2.THRESH_BINARY)
-I_out = binaria.flatten(order='C').astype(np.float32).reshape(-1, 1)  # Cambiar a float32
+I_out = img.flatten(order='C').astype(np.float32).reshape(-1, 1)  # Cambiar a float32
 
 # === Cálculo común ===
 N = Matriz_Hadamard_T.shape[0] // 2

@@ -34,11 +34,8 @@ for idx, archivo in enumerate(archivos_H1):
     if img.shape != (alto, ancho):
         raise ValueError(f"La imagen {archivo} tiene tamaño inesperado: {img.shape}")
 
-    # Binariza con unmbral 127
-    _, Matriz_Binaria_Speckle_H1 = cv2.threshold(img, 127, 1, cv2.THRESH_BINARY)
-
     # Se convierte la matriz binaria del speckle a un vector columna. (La vectorización se realiza fila a fila porque Jose programo así las matrices de Hadamard.)
-    Vector_Binario_Speckle_H1 = Matriz_Binaria_Speckle_H1.flatten(order='C')  # fila a fila
+    Vector_Binario_Speckle_H1 = img.flatten(order='C')  # fila a fila
     
     # Se va almacenando cada vector como una columna de esta submatriz H1.
     Submatriz_Intensidad_H1[:, idx] = Vector_Binario_Speckle_H1
@@ -81,11 +78,9 @@ for idx, archivo in enumerate(archivos):
     if img.shape != (alto, ancho):
         raise ValueError(f"La imagen {archivo} tiene tamaño inesperado: {img.shape}")
 
-    # Binariza con unmbral 127
-    _, Matriz_Binaria_Speckle_H2 = cv2.threshold(img, 127, 1, cv2.THRESH_BINARY)
 
     # Se convierte la matriz binaria del speckle a un vector columna. (La vectorización se realiza fila a fila porque Jose programo así las matrices de Hadamard.)
-    Vector_Binario_Speckle_H2 = Matriz_Binaria_Speckle_H2.flatten(order='C')  # fila a fila
+    Vector_Binario_Speckle_H2 = img.flatten(order='C')  # fila a fila
     
     # Se va almacenando cada vector como una columna de esta submatriz H2.
     Submatriz_Intensidad_H2[:, idx] = Vector_Binario_Speckle_H2

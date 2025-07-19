@@ -44,6 +44,6 @@ neg_H = -(2 * H2_bin - 1)  # -H ∈ {-1, +1}
 X_T = np.hstack((H, neg_H)).T  # tamaño (131072, 8192)
 
 # Guardar para reutilizar luego
-np.save('D:\\Archivos_Reconstruccion\\Hadamard_H_menosH.npy', X_T)
+np.save('D:\\Archivos_Reconstruccion\\Hadamard_H_menosH_transpuesta.npy', X_T)
 
 print("Matriz de entrada Hadamard [H, -H] construida y guardada exitosamente.")

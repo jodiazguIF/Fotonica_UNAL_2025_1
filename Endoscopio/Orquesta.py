@@ -6,7 +6,7 @@ import os
 
 # Configuración Cámara
 num_frames = 4096
-delay = 0.5  # segundos entre capturas
+delay = 0.05  # segundos entre capturas
 exposure_time_ms = 5  # tiempo de exposición (ms)
 gain_value = 0        # ganancia (0 a 100)
 output_dir = "Speckles_Reconstruir" #Speckles
@@ -24,8 +24,6 @@ cam.gain = gain_value
 pygame.init()   #Iniciamos la instancia de pygame que nosz permite proyectar los patrones
 screen = pygame.display.set_mode((1920, 1080), pygame.FULLSCREEN) #Configuración para la proyección 
 clock = pygame.time.Clock() #Creamos una instancia para poder seleccionar los fps de proyección
-offset_x = 130
-offset_y = -40
     
 # Iniciar captura 
 cam.start_live_video(framerate = "30Hz")
@@ -50,10 +48,10 @@ while running and index < len(filenames):
     path = os.path.join(folder_path, filenames[index])
     image = pygame.image.load(path)
 
-    screen.blit(image,  (offset_x, offset_y))
+    screen.blit(image,  (320,0))
     pygame.display.flip()   #En esta línea se proyecta la imagen en pantalla
     
-    time.sleep(0.05)
+    time.sleep(delay)
     frame = cam.grab_image(timeout="2s", copy=True)
     filename = os.path.join(output_dir, f"frame_{contador_frame:02d}.png")
     imageio.imwrite(filename, frame)
@@ -73,10 +71,10 @@ while running and index < len(filenames):
     path = os.path.join(folder_path, filenames[index])
     image = pygame.image.load(path)
 
-    screen.blit(image,  (offset_x, offset_y))
+    screen.blit(image, (320,0))
     pygame.display.flip()   #En esta línea se proyecta la imagen en pantalla
     
-    time.sleep(0.05)
+    time.sleep(delay)
     frame = cam.grab_image(timeout="2s", copy=True)
     filename = os.path.join(output_dir, f"frame_{contador_frame:02d}.png")
     imageio.imwrite(filename, frame)
@@ -99,7 +97,7 @@ while running and index < len(filenames):
     path = os.path.join(folder_path, filenames[index])
     image = pygame.image.load(path)
 
-    screen.blit(image,  (offset_x, offset_y))
+    screen.blit(image,  (320,0))
     pygame.display.flip()   #En esta línea se proyecta la imagen en pantalla
     
     time.sleep(0.5)
