@@ -17,7 +17,7 @@ Y_H1 = 2 * H1_speckles - I1
 Y_H2 = 2 * H2_speckles - I1
 
 # Concatenar horizontalmente
-Matriz_Intensidad = np.hstack((Y_H1, Y_H2))  # matriz de intensidad ∈ (1310720, 8192)
+Matriz_Intensidad = np.hstack((Y_H1, Y_H2))  # matriz de intensidad  (1310720, 8192)
 
 print("Concatenacion terminada :D")
 

@@ -113,7 +113,7 @@ def get_Hadamard_2_SurfaceToShow(pattern_size, convertion_Column):
     Hadamard_H2_surface = pygame.surfarray.make_surface(Hadamard_H2_rgb_pattern)    # Se convierte en superficie el patrón para mostrarlo con pygame
     return Hadamard_H2_surface
 
-def save_hadamard_patterns_to_disk(pattern_size, Hadamard_Selection ,output_dir="Hadamard_Patterns"):
+def save_hadamard_patterns_to_disk(pattern_size, Hadamard_Selection,target_size = [1920,1080],output_dir="Hadamard_Patterns"):
     """
     Generates and saves to disk all Hadamard patterns (as PNG images)
     for a given pattern resolution.
@@ -138,8 +138,8 @@ def save_hadamard_patterns_to_disk(pattern_size, Hadamard_Selection ,output_dir=
         return print("Hadamard Selection must be 1 or 2")
 
     for i in range(matrix_order):
-        pattern_scaled = pattern_adapt(hadamard_matrix, i)
-        pattern_centered = embed_in_DMD_frame(pattern_scaled)
+        pattern_scaled = pattern_adapt(hadamard_matrix, i, target_size)
+        pattern_centered = embed_in_DMD_frame(pattern_scaled, target_size)
 
         # Save as PNG image
         filename = os.path.join(output_dir, f"hadamard_{i:04}.png")
@@ -209,5 +209,5 @@ img_matrix = adapt_matrix_to_scale(img_matrix, [1280, 1024])
 imagen = embed_in_DMD_frame(img_matrix, [1280, 1024])
 plt.imsave(filename, imagen, cmap="gray", vmin=0, vmax=255)
 '''
-#save_hadamard_patterns_to_disk(64,1, "Hadamard_1_64")
-#save_hadamard_patterns_to_disk(64,2, "Hadamard_2_64")
+save_hadamard_patterns_to_disk(2,1, [1280,1024] ,"Hadamard_1_2_1280x1024")
+save_hadamard_patterns_to_disk(2,2, [1280,1024] ,"Hadamard_2_2_1280x1024")
