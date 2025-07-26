@@ -19,8 +19,8 @@ archivos_H1 = sorted([
     f for f in os.listdir(file_H1) if f.endswith('.png')
 ])
 
-# Dimensiones de imagen
-alto, ancho = 1024, 1280
+# Dimensiones de imagen (alto, ancho) según formato OpenCV
+alto, ancho = 1024, 1280  # OpenCV usa (filas, columnas) = (alto, ancho)
 M = alto * ancho    # 1310720
 N_H1 = len(archivos_H1)  # número total de imágenes (deben ser 4096)
 
@@ -43,17 +43,17 @@ if N_H1 > 2**15:  # Límite práctico para evitar matrices muy grandes
     print(f"Advertencia: N_H1={N_H1} es muy grande.")
 
 '''
-Genera una matriz binaria de tamaño M x N_H1 de variables de tipo uint8.
-Donde se espera que cada columna sea un vector binario de un patrón Hadamard.
+Genera una matriz de intensidades de tamaño M x N_H1 de variables de tipo uint8.
+Donde cada columna es un vector speckle con valores de intensidad (0-255).
 Se inicializa con ceros.
 '''
 # Inicializar la matriz de salida (cada columna es un vector speckle)
 Submatriz_Intensidad_H1 = np.zeros((M, N_H1), dtype=np.uint8)
 
 '''
-Se hace entonces una iteración para procesar las 4096*2 imágenes correspondientes a la respuesta (speckle) 
+Se hace entonces una iteración para procesar las 4096 imágenes correspondientes a la respuesta (speckle) 
 de la MMF al patrón de Hadamard.
-Cada imagen se carga, se binariza y se almacena como una columna en las matrices H1_bin y H2_bin.
+Cada imagen se carga manteniendo sus valores de intensidad originales y se almacena como una columna vectorizada.
 '''
 # Iterar sobre las imágenes y vectorizarlas
 for idx, archivo in enumerate(archivos_H1):
@@ -76,10 +76,10 @@ for idx, archivo in enumerate(archivos_H1):
 
     # Se convierte la matriz del speckle a un vector columna
     # La vectorización se realiza fila a fila (order='C')
-    Vector_Binario_Speckle_H1 = img.flatten(order='C')  # fila a fila
+    Vector_Intensidad_Speckle_H1 = img.flatten(order='C')  # fila a fila
     
     # Se va almacenando cada vector como una columna de esta submatriz H1
-    Submatriz_Intensidad_H1[:, idx] = Vector_Binario_Speckle_H1
+    Submatriz_Intensidad_H1[:, idx] = Vector_Intensidad_Speckle_H1
     
     # Mostrar progreso cada 100 imágenes
     if (idx + 1) % 100 == 0:
@@ -148,10 +148,10 @@ for idx, archivo in enumerate(archivos_H2):
 
     # Se convierte la matriz del speckle a un vector columna
     # La vectorización se realiza fila a fila (order='C')
-    Vector_Binario_Speckle_H2 = img.flatten(order='C')  # fila a fila
+    Vector_Intensidad_Speckle_H2 = img.flatten(order='C')  # fila a fila
     
     # Se va almacenando cada vector como una columna de esta submatriz H2
-    Submatriz_Intensidad_H2[:, idx] = Vector_Binario_Speckle_H2
+    Submatriz_Intensidad_H2[:, idx] = Vector_Intensidad_Speckle_H2
     
     # Mostrar progreso cada 100 imágenes
     if (idx + 1) % 100 == 0:
