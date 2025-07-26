@@ -8,9 +8,9 @@ Recibe imágenes PNG de tamaño 1280 x 1024 y genera matrices de tamaño 1310720
 Estas no se binarizan, sino que se guardan manteniendo los valores de intensidad originales
 (0-255) en formato uint8.
 '''
-# Rutas locales (Disco duro externo)
-file_H1 = 'D:\\Speckle_H1_1280x1024' # Contiene las 4096 imagenes de los speckles respuesta a H1
-file_H2 = 'D:\\Speckle_H2_1280x1024' # Contiene las 4096 imagenes de los speckles respuesta a H2
+# Rutas locales (Volumen Windows montado en Linux)
+file_H1 = '/media/manuel/Windows/Speckle_H1_1280x1024' # Contiene las 4096 imagenes de los speckles respuesta a H1
+file_H2 = '/media/manuel/Windows/Speckle_H2_1280x1024' # Contiene las 4096 imagenes de los speckles respuesta a H2
 
 ######################### Obtención de sub matriz de intensidad Speckles H1 #########################
 
@@ -36,9 +36,7 @@ print(f"Dimensiones detectadas: {alto}x{ancho}, M={M}, N_H1={N_H1}")
 memoria_H1_gb = M * N_H1 / (1024**3)
 print(f"Memoria requerida para Submatriz_Intensidad_H1: {memoria_H1_gb:.2f} GB")
 
-# Verificar que las dimensiones son coherentes
-if M > 2**31 - 1:  # Límite de int32
-    raise ValueError(f"M={M} excede el límite de int32")
+# Verificar número de imágenes esperado
 if N_H1 > 2**15:  # Límite práctico para evitar matrices muy grandes
     print(f"Advertencia: N_H1={N_H1} es muy grande.")
 
@@ -81,8 +79,8 @@ for idx, archivo in enumerate(archivos_H1):
     # Se va almacenando cada vector como una columna de esta submatriz H1
     Submatriz_Intensidad_H1[:, idx] = Vector_Intensidad_Speckle_H1
     
-    # Mostrar progreso cada 100 imágenes
-    if (idx + 1) % 100 == 0:
+    # Mostrar progreso cada 300 imágenes
+    if (idx + 1) % 300 == 0:
         print(f"H1: Procesadas {idx + 1}/{N_H1} imágenes")
 
 # Validar matriz final H1
@@ -92,9 +90,9 @@ print(f"Rango de valores: [{Submatriz_Intensidad_H1.min()}, {Submatriz_Intensida
 print(f"Tipo de dato: {Submatriz_Intensidad_H1.dtype}")
 
 # Guardar la matriz como archivo binario NumPy
-np.save('D:\\Archivos_Reconstruccion\\speckles_H1_vectorizados.npy', Submatriz_Intensidad_H1)
+np.save('/media/manuel/Windows/Archivos_Reconstruccion/speckles_H1_vectorizados.npy', Submatriz_Intensidad_H1)
 
-print("Matriz H1 de speckles guardada exitosamente en: D:\\Archivos_Reconstruccion\\speckles_H1_vectorizados.npy")
+print("Matriz H1 de speckles guardada exitosamente en: /media/manuel/Windows/Archivos_Reconstruccion/speckles_H1_vectorizados.npy")
 
 
 ######################### Obtención de sub matriz de intensidad Speckles H2 #########################
@@ -170,9 +168,9 @@ print(f"Memoria total utilizada: {memoria_total_gb:.2f} GB")
 print(f"Matrices H1 y H2 procesadas exitosamente")
 
 # Guardar la matriz como archivo binario NumPy
-np.save('D:\\Archivos_Reconstruccion\\speckles_H2_vectorizados.npy', Submatriz_Intensidad_H2)
+np.save('/media/manuel/Windows/Archivos_Reconstruccion/speckles_H2_vectorizados.npy', Submatriz_Intensidad_H2)
 
-print("Matriz H2 de speckles guardada exitosamente en: D:\\Archivos_Reconstruccion\\speckles_H2_vectorizados.npy")
+print("Matriz H2 de speckles guardada exitosamente en: /media/manuel/Windows/Archivos_Reconstruccion/speckles_H2_vectorizados.npy")
 
 
 
