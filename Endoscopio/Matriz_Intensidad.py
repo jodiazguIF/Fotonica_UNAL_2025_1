@@ -97,8 +97,10 @@ Y_H2_memmap = np.memmap(os.path.join(temp_path, 'temp_Y_H2.dat'),
 
 # Extraer I1 (vector columna base) y convertir a int16 de una vez
 print("Extrayendo vector I1 (patrón Hadamard con todos los píxeles en 1)...")
+print("IMPORTANTE: I1 es el speckle de referencia (patrón all-ones H1[:, 0])")
 I1 = H1_speckles[:, 0].reshape(-1, 1).astype(np.int16)
 print(f"Vector I1 extraído: forma={I1.shape}, dtype={I1.dtype}")
+print(f"I1 estadísticas: min={I1.min()}, max={I1.max()}, media={I1.mean():.2f}")
 
 # Pre-calcular índices de chunks para optimización
 print("Pre-calculando índices de chunks...")
@@ -111,6 +113,12 @@ for i, (inicio, fin) in enumerate(chunk_indices):
     columnas_chunk = fin - inicio
     
     print(f"Procesando chunk {i+1}/{num_chunks}: columnas {inicio} a {fin-1} ({columnas_chunk} columnas)")
+    
+    # ===== FÓRMULA CRÍTICA: Y = 2*Speckle - I₁ =====
+    # Esta transformación es ESENCIAL para que la reconstrucción funcione:
+    # - Elimina el término DC I₁ de cada speckle 
+    # - Convierte la matriz de intensidad en formato adecuado para inversión
+    # - La reconstrucción posterior I_rec = (1/2N)*(Y @ c) YA dará la imagen correcta
     
     # Aplicar fórmula vectorizada: Y = 2 * I^p - I^1
     # Carga y conversión directa para eficiencia
